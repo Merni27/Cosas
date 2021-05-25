@@ -24,21 +24,21 @@ fi
 
 for i in "$@"   #para trabajar sobre los parametros
 do
-    if [ ! -b "$i" ] #Al igual que comprobabamos si existia un file -f. -b para bloques especiales
+    if [ ! -b "$i" ] >/dev/null 2>&1  #Al igual que comprobabamos si existia un file -f. -b para bloques especiales
     then
-        "No existe la partición $i"
-        exit 2
+	echo "No existe la particion $i"
+	exit 2
     else
         if mount | grep "$i" >/dev/null 2>&1 #Comprobamos si ya esta montada esta particion
         then
             echo "La particion $i ya esta montada"
         else
-            if sudo pvdisplay "$i" | grep "$v_group" >/dev/null 2>&1 #Comprobamos que ya este añadida al volumen logico
+            if (sudo pvdisplay "$i" | grep "$v_group") >/dev/null 2>&1 #Comprobamos que ya este añadida al volumen logico
             then
                 echo "Particion ya ha sido añadida"
             else
-                sudo pvcreate "$i"              #Con esto creamos el volumen fisico para 
-                sudo vgextend "$v_group" "$i"   #posteriormente añadirlo al grupo volumen                        
+                echo y | sudo pvcreate "$i" >/dev/null 2>&1            #Con esto creamos el volumen fisico para 
+                sudo vgextend "$v_group" "$i" >/dev/null 2>&1  #posteriormente añadirlo al grupo volumen                        
                 echo "El volumen fisico $i ha sido añadido"
             fi
         fi
