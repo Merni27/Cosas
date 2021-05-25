@@ -1,6 +1,6 @@
 #!/bin/bash
-#736259, Garcia, Hector, T, 1, A
-#778053, Hernando, Marcos, T, 1, A
+#736259, Garcia, Hector, T, 2, B
+#778053, Hernando, Marcos, T, 2, B
 
 #Practica-5 Parte III : extienda la capacidad de un grupo volumen añadiéndole particiones.
 
